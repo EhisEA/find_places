@@ -13,7 +13,7 @@ it display the first 20 closest result, it has a wide range of options to pick f
 
 
 <img src="assets/app_1.png" height=400px style="
-    margin: 30px;" />
+    margin: 300px;" />
 <img src="assets/app_1.png" height=400px style="
-    margin: 30px;" />
+    margin: 300px;" />
 
