@@ -34,19 +34,20 @@ class HomeView extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => AltHomeView()),
               );
             },
-            child: Scaffold(
-              body: Column(
-                children: [
-                  SizedBox(height: 20),
-                  // =====================================================
-                  // ======================header section=================
-                  // =====================================================
-                  header(context,model),
-                  // =====================================================
-                  // ======================Places section=================
-                  // =====================================================
-                  Expanded(child: SingleChildScrollView(child: places())),
-                ],
+            child: SafeArea(
+              child: Scaffold(
+                body: Column(
+                  children: [
+                    // =====================================================
+                    // ======================header section=================
+                    // =====================================================
+                    header(context,model),
+                    // =====================================================
+                    // ======================Places section=================
+                    // =====================================================
+                    Expanded(child: SingleChildScrollView(child: places())),
+                  ],
+                ),
               ),
             ),
           ),

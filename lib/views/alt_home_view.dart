@@ -17,73 +17,72 @@ class AltHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeService>(
       builder: (_, model, __) {
-        return GestureDetector(
-          onLongPress: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeView()),
-            );
-          },
-          child: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: model.isDark? SystemUiOverlayStyle(
-              // Use [dark] for white status bar and [light] for black status bar.
-              statusBarBrightness: Brightness.dark,
-            ):SystemUiOverlayStyle(
-              // For iOS.
-              // Use [dark] for white status bar and [light] for black status bar.
-              statusBarBrightness: Brightness.light,
-            ),
-            child: Scaffold(
-              body: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  header(context, model),
-                  Expanded(
-                    child: StaggeredGridView.countBuilder(
-                      crossAxisCount: 4,
-                      padding: EdgeInsets.all(10),
-                      itemCount: PlacesData.length,
-                      itemBuilder: (BuildContext context, int index) => InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ResultView(
-                                placeToFind: PlacesData[index]["name"],
+        return SafeArea(
+          child: GestureDetector(
+            onLongPress: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => HomeView()),
+              );
+            },
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: model.isDark? SystemUiOverlayStyle(
+                // Use [dark] for white status bar and [light] for black status bar.
+                statusBarBrightness: Brightness.dark,
+              ):SystemUiOverlayStyle(
+                // For iOS.
+                // Use [dark] for white status bar and [light] for black status bar.
+                statusBarBrightness: Brightness.light,
+              ),
+              child: Scaffold(
+                body: Column(
+                  children: [
+                    header(context, model),
+                    Expanded(
+                      child: StaggeredGridView.countBuilder(
+                        crossAxisCount: 4,
+                        padding: EdgeInsets.all(10),
+                        itemCount: PlacesData.length,
+                        itemBuilder: (BuildContext context, int index) => InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ResultView(
+                                  placeToFind: PlacesData[index]["name"],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        child: Stack(
-                          fit: StackFit.loose,
-                          children: [
-                            Image.asset(
-                              PlacesData[index]["image"],
-                              fit: BoxFit.cover,
-                            ),
-                            Positioned.fill(
-                                child: Container(
-                              color: Colors.black.withOpacity(0.5),
-                            )),
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Text(
-                                "* " + PlacesData[index]["name"],
-                                style: TextStyle(
-                                    color: Colors.tealAccent,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
+                            );
+                          },
+                          child: Stack(
+                            fit: StackFit.loose,
+                            children: [
+                              Image.asset(
+                                PlacesData[index]["image"],
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          ],
+                              Positioned.fill(
+                                  child: Container(
+                                color: Colors.black.withOpacity(0.5),
+                              )),
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  "* " + PlacesData[index]["name"],
+                                  style: TextStyle(
+                                      color: Colors.tealAccent,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
+                        staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+                        mainAxisSpacing: 10.0,
+                        crossAxisSpacing: 10.0,
                       ),
-                      staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
